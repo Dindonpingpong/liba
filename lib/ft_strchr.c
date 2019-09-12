@@ -6,19 +6,26 @@
 /*   By: rkina <rkina@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 18:02:54 by rkina             #+#    #+#             */
-/*   Updated: 2019/09/11 14:30:30 by rkina            ###   ########.fr       */
+/*   Updated: 2019/09/12 15:57:00 by rkina            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strchr(char *str, int ch)
+#include "libft.h"
+
+char	*ft_strchr(const char *s, int c)
 {
-	if (ch == '\0')
-		return (str);
-	while (*str)
+	unsigned char	chr;
+	char			*ptr1;
+
+	chr = (unsigned char)c;
+	ptr1 = (char *)s;
+	while (*ptr1)
 	{
-		if (*str == ch)
-			return (str);
-		str++;
+		if (*ptr1 == chr)
+			return (ptr1);
+		ptr1++;
 	}
+	if (chr == '\0')
+		return (ptr1);
 	return (0);
 }

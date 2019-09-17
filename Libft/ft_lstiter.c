@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgrass <mgrass@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/10 16:32:47 by mgrass            #+#    #+#             */
-/*   Updated: 2019/09/16 14:40:39 by mgrass           ###   ########.fr       */
+/*   Created: 2019/09/14 19:01:14 by mgrass            #+#    #+#             */
+/*   Updated: 2019/09/17 19:02:07 by mgrass           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnew(size_t size)
+void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
 {
-	char	*str;
-	size_t	i;
+	t_list *ptr;
 
-	i = 0;
-	if (size >= 65535)
-		return (NULL);
-	if (!(str = (char *)malloc(sizeof(char) * size + 1)))
-		return (NULL);
-	if (size)
+	if (lst && f)
 	{
-		while (size > i)
+		ptr = lst;
+		while (ptr)
 		{
-			str[i] = '\0';
-			i++;
+			(*f)(ptr);
+			ptr = ptr->next;
 		}
-		str[i] = '\0';
 	}
-	return (str);
 }

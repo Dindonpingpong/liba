@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnew.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgrass <mgrass@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/10 16:32:47 by mgrass            #+#    #+#             */
-/*   Updated: 2019/09/16 14:40:39 by mgrass           ###   ########.fr       */
+/*   Created: 2019/09/12 21:02:40 by mgrass            #+#    #+#             */
+/*   Updated: 2019/09/12 21:06:59 by mgrass           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnew(size_t size)
+void	ft_putnbr(int n)
 {
-	char	*str;
-	size_t	i;
-
-	i = 0;
-	if (size >= 65535)
-		return (NULL);
-	if (!(str = (char *)malloc(sizeof(char) * size + 1)))
-		return (NULL);
-	if (size)
+	if (n == -2147483648)
 	{
-		while (size > i)
-		{
-			str[i] = '\0';
-			i++;
-		}
-		str[i] = '\0';
+		ft_putchar('-');
+		ft_putnbr(2);
+		ft_putnbr(147483648);
 	}
-	return (str);
+	else if (n < 0)
+	{
+		n = -n;
+		ft_putchar('-');
+		ft_putnbr(n);
+	}
+	else if (n > 9)
+	{
+		ft_putnbr(n / 10);
+		ft_putnbr(n % 10);
+	}
+	else
+		ft_putchar(n + 48);
 }

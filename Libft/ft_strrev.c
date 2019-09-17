@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnew.c                                        :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgrass <mgrass@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/10 16:32:47 by mgrass            #+#    #+#             */
-/*   Updated: 2019/09/16 14:40:39 by mgrass           ###   ########.fr       */
+/*   Created: 2019/09/17 16:43:20 by mgrass            #+#    #+#             */
+/*   Updated: 2019/09/17 17:34:23 by mgrass           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnew(size_t size)
+char	*ft_strrev(char *s)
 {
-	char	*str;
-	size_t	i;
+	int		i;
+	int		c;
+	char	chr;
 
 	i = 0;
-	if (size >= 65535)
-		return (NULL);
-	if (!(str = (char *)malloc(sizeof(char) * size + 1)))
-		return (NULL);
-	if (size)
+	c = 0;
+	if (*s)
 	{
-		while (size > i)
+		while (s[c])
+			c++;
+		c -= 1;
+		while (i < (c + 1) / 2)
 		{
-			str[i] = '\0';
+			chr = s[i];
+			s[i] = s[c - i];
+			s[c - i] = chr;
 			i++;
 		}
-		str[i] = '\0';
 	}
-	return (str);
+	return (s);
 }

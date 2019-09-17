@@ -6,7 +6,7 @@
 /*   By: mgrass <mgrass@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 14:16:32 by mgrass            #+#    #+#             */
-/*   Updated: 2019/09/09 18:49:17 by mgrass           ###   ########.fr       */
+/*   Updated: 2019/09/16 13:13:07 by mgrass           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 
 	ptr1 = (unsigned char *)dst;
 	ptr2 = (unsigned char *)src;
-	i = 0;
 	if (ptr1 == ptr2)
 		return (dst);
 	if (ptr1 > ptr2)
@@ -31,8 +30,12 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	}
 	else
 	{
-		while (++i < len)
+		i = 0;
+		while (i < len)
+		{
 			ptr1[i] = ptr2[i];
+			i++;
+		}
 	}
 	return (dst);
 }

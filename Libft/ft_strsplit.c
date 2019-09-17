@@ -3,106 +3,80 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkina <rkina@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mgrass <mgrass@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 12:36:12 by mgrass            #+#    #+#             */
-/*   Updated: 2019/09/12 19:26:33 by rkina            ###   ########.fr       */
+/*   Updated: 2019/09/17 19:35:51 by mgrass           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char		*ft_strultrim(char const *s, char delim)
-{
-	int		i;
-	int		j;
-	int		c;
-	char	*tmp;
-
-	i = 0;
-	c = 0;
-	if (s)
-	{
-		j = ft_strlen(s) - 1;
-		while (s[i] && s[i] == delim)
-			i++;
-		if (!(tmp = (char *)malloc(sizeof(j-i+1))))
-			return (NULL);
-		while (s[i] != j && s[j] == delim)
-			j--;
-		while (i <= j)
-			tmp[c++] = s[i++];
-		tmp[c] = '\0';
-		return (tmp);
-	}
-	return (NULL);
-}
-
-int		g_n_words;
-
-static int		is_whitespace(char s, char c)
+static int		ft_isdelimiter(const char s, char c)
 {
 	return (s == c);
 }
 
-static int		count_words(char *str, char c)
+static int		ft_count_words(char const *str, char c)
 {
-	int	word;
-	int number_words;
-	int i;
+	int			word;
+	int			number_words;
+	int			i;
 
 	word = 0;
 	number_words = 0;
 	i = 0;
-	while (str[i] != '\0')
+	while (str[i++])
 	{
-		if (!is_delim(str[i], c) && word == 0)
+		if (!ft_isdelimiter(str[i], c) && word == 0)
 		{
-			++number_words;
+			number_words++;
 			word = 1;
 		}
-		else if (is_delim(str[i], c))
+		else if (ft_isdelimiter(str[i], c))
 			word = 0;
-		i++;
 	}
 	return (number_words);
 }
 
-static int		calculate_length(char *str)
+static int		ft_calculate_length(char const *str, char c)
 {
-	int i;
+	int			i;
 
 	i = 0;
-	while (str[i] != '\0' && !is_whitespace(str[i]))
-		++i;
+	while (str[i] && !ft_isdelimiter(str[i], c))
+		i++;
 	return (i);
 }
 
-char	**ft_strsplit(char const *str, char c)
+char			**ft_strsplit(char const *str, char c)
 {
-	char	**array;
-	int		word;
-	int		i;
-	int		length;
+	char		**array;
+	int			word;
+	int			length;
+	int			next_words;
 
-	array = (char **)malloc(count_words(str) * sizeof(char *) + 1);
-	word = 0;
-	g_n_words = 0;
-	i = 0;
-	while (str[i] != '\0')
+	if (str)
 	{
-		if (!is_whitespace(str[i]) && word == 0)
+		array = (char **)malloc(sizeof(char *) * ft_count_words(str, c) + 1);
+		word = 0;
+		next_words = 0;
+		while (*str)
 		{
-			word = 1;
-			length = calculate_length(&str[i]);
-			array[g_n_words] = (char *)malloc((length + 1) * sizeof(char));
-			array[g_n_words] = ft_strncpy(array[g_n_words], &str[i], length);
-			++g_n_words;
+			if (!ft_isdelimiter(*str, c) && word == 0)
+			{
+				word = 1;
+				length = ft_calculate_length(&*str, c);
+				array[next_words] = (char *)malloc((length + 1) * sizeof(char));
+				array[next_words] = ft_strncpy(array[next_words], &*str, length);
+				next_words++;
+			}
+			else if (ft_isdelimiter(*str, c))
+				word = 0;
+			str++;
 		}
-		else if (is_whitespace(str[i]))
-			word = 0;
-		++i;
+		array[next_words] = 0;
+		return (array);
 	}
-	array[g_n_words] = 0;
-	return (array);
+	return (NULL);
 }

@@ -6,13 +6,15 @@
 /*   By: rkina <rkina@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 19:48:39 by rkina             #+#    #+#             */
-/*   Updated: 2019/09/10 20:50:07 by rkina            ###   ########.fr       */
+/*   Updated: 2019/09/22 18:45:14 by rkina            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_strncmp(const char *s1, const char *s2, int n)
+#include "libft.h"
+
+int		ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	if (n <= 0)

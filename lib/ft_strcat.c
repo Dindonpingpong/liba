@@ -6,19 +6,19 @@
 /*   By: rkina <rkina@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 18:01:03 by rkina             #+#    #+#             */
-/*   Updated: 2019/09/07 18:01:30 by rkina            ###   ########.fr       */
+/*   Updated: 2019/09/22 18:21:46 by rkina            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strcat(char *dest, char *app)
+char	*ft_strcat(char *s1, const char *s2)
 {
 	int i;
 
 	i = 0;
-	while (dest[i])
+	while (s1[i])
 		i++;
-	while (*app)
-		dest[i++] = *app++;
-	dest[i] = '\0';
-	return (dest);
+	while (*s2)
+		s1[i++] = *s2++;
+	s1[i] = '\0';
+	return (s1);
 }

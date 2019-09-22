@@ -6,19 +6,21 @@
 /*   By: rkina <rkina@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 18:02:02 by rkina             #+#    #+#             */
-/*   Updated: 2019/09/08 14:04:49 by rkina            ###   ########.fr       */
+/*   Updated: 2019/09/22 18:23:08 by rkina            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strncat(char *dest, char *app, int len)
+#include "libft.h"
+
+char	*ft_strncat(char *s1, const char *s2, size_t len)
 {
 	int i;
 
 	i = 0;
-	while (dest[i])
+	while (s1[i])
 		i++;
-	while (*app && len-- > 0)
-		dest[i++] = *app++;
-	dest[i] = '\0';
-	return (dest);
+	while (*s2 && len-- > 0)
+		s1[i++] = *s2++;
+	s1[i] = '\0';
+	return (s1);
 }

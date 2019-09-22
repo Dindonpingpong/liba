@@ -6,11 +6,11 @@
 /*   By: rkina <rkina@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:57:54 by rkina             #+#    #+#             */
-/*   Updated: 2019/09/07 18:00:00 by rkina            ###   ########.fr       */
+/*   Updated: 2019/09/22 18:19:00 by rkina            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strcpy(char *dest, char *src)
+char	*ft_strcpy(char *dest, const char *src)
 {
 	int i;
 

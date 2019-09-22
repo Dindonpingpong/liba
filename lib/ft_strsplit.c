@@ -6,73 +6,67 @@
 /*   By: rkina <rkina@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 19:28:16 by rkina             #+#    #+#             */
-/*   Updated: 2019/09/12 20:41:39 by rkina            ###   ########.fr       */
+/*   Updated: 2019/09/22 14:34:19 by rkina            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		is_delim(const char s, char c)
+static void		*ft_arrdel(void **res)
 {
-	return (s == c);
+	void		**tmp;
+
+	tmp = res;
+	while (res && *res)
+		free(*res++);
+	free(tmp);
+	tmp = NULL;
+	return (tmp);
 }
 
-static int		count_words(char const *str, char c)
+static int		ft_countwrd(char const *s, char c)
 {
-	int			word;
-	int			number_words;
-	int			i;
+	int			countwrd;
+	size_t		i;
 
-	word = 0;
-	number_words = 0;
+	countwrd = 0;
 	i = 0;
-	while (str[i++])
+	while (s[i])
 	{
-		if (!is_delim(str[i], c) && word == 0)
-		{
-			number_words++;
-			word = 1;
-		}
-		else if (is_delim(str[i], c))
-			word = 0;
+		while (s[i] == c)
+			i++;
+		if (s[i] != c && s[i] != '\0')
+			countwrd++;
+		while (s[i] != c && s[i] != '\0')
+			i++;
 	}
-	return (number_words);
+	return (countwrd);
 }
 
-static int		calculate_length(char const *str, char c)
+char			**ft_strsplit(char const *s, char c)
 {
-	int			i;
+	char		**words;
+	size_t		nbr_words;
+	size_t		i;
+	size_t		k;
 
-	i = 0;
-	while (str[i] && !is_delim(str[i], c))
-		i++;
-	return (i);
-}
-
-char			**ft_strsplit(char const *str, char c)
-{
-	char		**array;
-	int			word;
-	int			length;
-	int			g_n_words;
-
-	array = (char **)malloc(count_words(str, c) * sizeof(char *) + 1);
-	word = 0;
-	g_n_words = 0;
-	while (*str)
+	if (!s || !(words = (char**)malloc(sizeof(*words) *
+			((nbr_words = ft_countwrd(s, c)) + 1))))
+		return (NULL);
+	k = -1;
+	while (++k < nbr_words)
 	{
-		if (!is_delim(*str, c) && word == 0)
-		{
-			word = 1;
-			length = calculate_length(&*str, c);
-			array[g_n_words] = (char *)malloc((length + 1) * sizeof(char));
-			array[g_n_words] = ft_strncpy(array[g_n_words], &*str, length);
-			g_n_words++;
-		}
-		else if (is_delim(*str, c))
-			word = 0;
-		str++;
+		while (*s == c)
+			s++;
+		i = 0;
+		while (s[i] != c && s[i] != '\0')
+			i++;
+		if (!(words[k] = ft_strnew(i)))
+			return (ft_arrdel((void**)words));
+		else if (!(i = 0))
+			while (*s != c && *s)
+				words[k][i++] = *s++;
 	}
-	array[g_n_words] = 0;
-	return (array);
+	words[k] = 0;
+	return (words);
 }

@@ -6,7 +6,7 @@
 /*   By: rkina <rkina@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 15:41:41 by rkina             #+#    #+#             */
-/*   Updated: 2019/09/12 15:41:55 by rkina            ###   ########.fr       */
+/*   Updated: 2019/09/21 19:24:58 by rkina            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	unsigned char	*ptr1;
-	unsigned char	*ptr2;
-	size_t			i;
+	size_t	i;
 
-	ptr1 = (unsigned char *)dst;
-	ptr2 = (unsigned char *)src;
 	i = 0;
-	if (ptr1 == ptr2)
-		return (dst);
-	if (ptr1 > ptr2)
+	if (!dst && !src)
+		return (0);
+	if ((char *)src < (char *)dst)
 	{
-		i = len;
-		while (i-- > 0)
-			ptr1[i] = ptr2[i];
+		while (len-- > 0)
+			((char *)dst)[len] = ((char *)src)[len];
 	}
+	else if ((char *)src == (char *)dst)
+		return (dst);
 	else
 	{
-		while (++i < len)
-			ptr1[i] = ptr2[i];
+		while (i < len)
+		{
+			((char *)dst)[i] = ((char *)src)[i];
+			i++;
+		}
 	}
-	return (dst);
+	return ((char *)dst);
 }
